@@ -1,0 +1,338 @@
+{
+  "benchmark_name": "arxiv-rag-ccby4-mini-qa",
+  "created_before_run": true,
+  "split_policy": "Document-level holdout: dev (15 questions) covers 2404.04302, 2506.16988, and 2506.18027; test (5 questions) is strictly held out on 2603.05698 to prevent document leakage.",
+  "pre_registered_selection_criteria": "Select strategy before reading test metrics by: (1) highest dev Evidence Hit@3, (2) tie-break on dev Hit@1 and manual chunk coherence, (3) dev metadata filter compliance and ingestion/query resource cost.",
+  "questions": [
+    {
+      "id": "q01",
+      "split": "dev",
+      "type": "truc_tiep",
+      "question": "In the CBR-RAG legal casebase, how many unique legal acts were identified and how many cases had no reference to legal acts?",
+      "expected_answer": "785 unique legal acts were identified, and 1,183 cases (57%) had no reference to legal acts (only 44 acts appeared in more than 1 case).",
+      "gold_source_id": "2404.04302",
+      "gold_page": 5,
+      "evidence_quote": "The most frequently mentioned act is the ‘Federal Court Rules’ out of 785 unique legal acts. Within the dataset, 1,183 (57%) cases were found to have no reference to legal acts, while only 44 acts appeared in more than 1 case.",
+      "required_evidence_clauses": [
+        "785 unique legal acts",
+        "1,183 (57%) cases were found to have no reference to legal acts"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q02",
+      "split": "dev",
+      "type": "dien_dat_lai",
+      "question": "How do intra-embeddings f(.) and inter-embeddings g(.) differ in what they compare inside CBR-RAG?",
+      "expected_answer": "Intra-embeddings f(.) compare items of the same attribute type (such as questions to questions for semantic textual similarity), whereas inter-embeddings g(.) allow matching across different attribute types (such as a query to supporting text or entities).",
+      "gold_source_id": "2404.04302",
+      "gold_page": 6,
+      "evidence_quote": "Intra Embeddings, f (·), optimised for attribute matching. These embeddings facilitate attribute-to-attribute comparisons where local similarities can be computed between the same types of attributes (e.g., questions with questions).\n\n– Inter Embeddings, g(·), designed for information retrieval (IR) scenarios. These embeddings allow for matching that is not restricted to like attributes, enabling inter-attribute similarity assessment.",
+      "required_evidence_clauses": [
+        "Intra Embeddings, f (·), optimised for attribute matching",
+        "Inter Embeddings, g(·), designed for information retrieval"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q03",
+      "split": "dev",
+      "type": "truc_tiep",
+      "question": "Why does AnglEBERT require a supervised paired training dataset unlike standard BERT?",
+      "expected_answer": "Because AnglE uses a contrastive learning strategy that needs positive and negative paired instances, whereas BERT can be trained unsupervised with MLM and NSP.",
+      "gold_source_id": "2404.04302",
+      "gold_page": 9,
+      "evidence_quote": "One of the difficulties when using AnglEBERT for a specific domain is that one must generate a supervised training set (unlike with BERT which can be trained in an unsupervised manner using the MLM and NSP self-supervision methods). This is because the AnglE method adopts a contrastive learning strategy, where the supervised dataset must include paired instances for training.",
+      "required_evidence_clauses": [
+        "supervised training set",
+        "contrastive learning strategy",
+        "paired instances for training"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q04",
+      "split": "dev",
+      "type": "truc_tiep",
+      "question": "What exact prefix cue does CBR-RAG prepend to a query for inter-embedding retrieval?",
+      "expected_answer": "\"Represent this sentence for searching relevant passages: \"",
+      "gold_source_id": "2404.04302",
+      "gold_page": 10,
+      "evidence_quote": "Cue(Q) = “Represent this sentence for searching relevant passages: ” {Q}",
+      "required_evidence_clauses": [
+        "Represent this sentence for searching relevant passages:"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q05",
+      "split": "dev",
+      "type": "truc_tiep_filter",
+      "question": "In the evaluation section, how many ALQA cases remained in the CBR-RAG case-base after filtering offensive triplets?",
+      "expected_answer": "2,084 cases remained after removing 40 offensive triplets from the original 2,124 triplets.",
+      "gold_source_id": "2404.04302",
+      "gold_page": 12,
+      "evidence_quote": "While originally containing 2,124 question-support-answer triplets, 40 were removed due to offensive content, and therefore our case-base contains 2,084 cases.",
+      "required_evidence_clauses": [
+        "2,124 question-support-answer triplets",
+        "40 were removed",
+        "2,084 cases"
+      ],
+      "filter": {
+        "section_type": "evaluation"
+      }
+    },
+    {
+      "id": "q06",
+      "split": "dev",
+      "type": "dieu_kien_ngoai_le",
+      "question": "Which hybrid algorithm, neighbor count k, and context option yielded the best cosine similarity score in CBR-RAG legal generation?",
+      "expected_answer": "Hybrid AnglEBERT with k = 3 using Full Case context achieved the highest score (0.9141, 1.94% higher on average than No-RAG).",
+      "gold_source_id": "2404.04302",
+      "gold_page": 14,
+      "evidence_quote": "The best semantic similarity was noted with the Hybrid AnglEBERT variant when 3 nearest neighbours were fed into the generator in the form of full cases forming context for RAG. It provided answers on average with 1.94% increase in performance.",
+      "required_evidence_clauses": [
+        "Hybrid AnglEBERT",
+        "3 nearest neighbours",
+        "full cases"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q07",
+      "split": "dev",
+      "type": "truc_tiep",
+      "question": "In RAGentA's hybrid retrieval stage, which dense embedding model, vector store, and alpha weight are used?",
+      "expected_answer": "intfloat/e5-base-v2 (E5) with Pinecone as vector store, fused with BM25 using alpha = 0.35.",
+      "gold_source_id": "2506.16988",
+      "gold_page": 2,
+      "evidence_quote": "Our semantic retrieval is powered by dense embeddings using the intfloat/e5-base-v2 model (E5) with Pinecone as the vector store to capture nuanced semantic relationships [23].\n\nThese two systems are fused using a tunable interpolation parameter α∈[ 0, 1], producing a final document score as: Shybrid(d) = α· Ssparse(d)+( 1− α)· Sdense(d) (1) We set α = 0.35 to give slightly higher weight to dense retrieval while maintaining meaningful contribution from sparse retrieval.",
+      "required_evidence_clauses": [
+        "intfloat/e5-base-v2",
+        "Pinecone",
+        "α = 0.35"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q08",
+      "split": "dev",
+      "type": "dieu_kien_ngoai_le",
+      "question": "How does Agent-2 (Judge) in RAGentA filter retrieved documents using the dynamic threshold adjusted_tau_q?",
+      "expected_answer": "It computes adjusted_tau_q = tau_q - n * sigma with n = 0.5, keeps documents where score >= adjusted_tau_q, and filters out documents where score < adjusted_tau_q.",
+      "gold_source_id": "2506.16988",
+      "gold_page": 3,
+      "evidence_quote": "After scoring all documents, the system computes the mean score (τq) and standard deviation (σ), establishing a dynamic threshold as adjusted_τq = τq− n· σ, where n is a hyperparameter controlling filtering stringency. According to empirical analyses from the MAIN-RAG study, optimal performance is achieved at n = 0.5. Utilizing this dynamic threshold, the system retains documents where score≥ adjusted_τq and filters those where score < adjusted_τq.",
+      "required_evidence_clauses": [
+        "adjusted_τq = τq− n· σ",
+        "n = 0.5",
+        "retains documents where score≥ adjusted_τq"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q09",
+      "split": "dev",
+      "type": "dieu_kien_ngoai_le",
+      "question": "When Agent-4 (Reviser) detects answer gaps and runs follow-up retrieval in RAGentA, which documents are excluded?",
+      "expected_answer": "Previously retrieved documents are excluded from the follow-up retrieval pass to obtain complementary information.",
+      "gold_source_id": "2506.16988",
+      "gold_page": 3,
+      "evidence_quote": "When gaps are identified, Agent-4 initiates a targeted follow-up process: it generates questions to address these gaps and uses the hybrid retrieval system from initial phase, excluding previously retrieved documents to ensure complementary information.",
+      "required_evidence_clauses": [
+        "excluding previously retrieved documents",
+        "complementary information"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q10",
+      "split": "dev",
+      "type": "dien_dat_lai_filter",
+      "question": "In the 2025 evaluation section, which open model replaced Claude-3.5 Sonnet as the automated evaluator in RAGentA and what score ranges were assigned?",
+      "expected_answer": "Llama-3.3-70B-Instruct acted as LLM-as-a-judge, assigning correctness in [-1, 2] and faithfulness in [-1, 1].",
+      "gold_source_id": "2506.16988",
+      "gold_page": 4,
+      "evidence_quote": "Instead of the closed-source Claude-3.5 Sonnet model, we use Llama-3.3-70B-Instruct as an LLM-as-a-judge, which receives the predicted answer, the ground-truth answer, and the cited passages. The LLM-as-a-judge assigns a correctness score in the range[−1, 2] and a faithfulness score in the range[−1, 1].",
+      "required_evidence_clauses": [
+        "Llama-3.3-70B-Instruct",
+        "[−1, 2]",
+        "[−1, 1]"
+      ],
+      "filter": {
+        "year": 2025,
+        "section_type": "evaluation"
+      }
+    },
+    {
+      "id": "q11",
+      "split": "dev",
+      "type": "truc_tiep",
+      "question": "Why does PIER-QA apply DBSCAN header and footer detection in 10-page batches rather than over the whole document at once?",
+      "expected_answer": "Because header and footer coordinate patterns can vary slightly, especially in long documents.",
+      "gold_source_id": "2506.18027",
+      "gold_page": 4,
+      "evidence_quote": "We also notice the pattern can slightly varies, especially on long documents, therefore we apply the algorithm on each 10 pages instead of the entire document at once.",
+      "required_evidence_clauses": [
+        "pattern can slightly varies",
+        "each 10 pages instead of the entire document at once"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q12",
+      "split": "dev",
+      "type": "dien_dat_lai",
+      "question": "What character chunk size, embedding model, and search database does PIER-QA use in its system design?",
+      "expected_answer": "Chunks of 1000 characters embedded with GTE-large and stored in ElasticSearch (enhanced by RAPTOR).",
+      "gold_source_id": "2506.18027",
+      "gold_page": 3,
+      "evidence_quote": "The preprocessed markdown document is segmented into chunks of 1000 characters each, embedded by GTE-large Li et al. [2023] and stored using ElasticSearch Kathare et al. [2020] for efficient retrieval.",
+      "required_evidence_clauses": [
+        "1000 characters",
+        "GTE-large",
+        "ElasticSearch"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q13",
+      "split": "dev",
+      "type": "dieu_kien_ngoai_le",
+      "question": "What risk arises in PIER-QA if DBSCAN fails to distinguish headers and footers from body content on highly variable PDFs?",
+      "expected_answer": "Misidentification could lead to loss of essential information in subsequent processing.",
+      "gold_source_id": "2506.18027",
+      "gold_page": 8,
+      "evidence_quote": "DBSCAN clustering algorithm might not always differentiate headers, footers and the main content, especially in highly variable PDF document formats. This misidentification could lead to loss of essential information in the further processing.",
+      "required_evidence_clauses": [
+        "might not always differentiate headers, footers and the main content",
+        "loss of essential information"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q14",
+      "split": "dev",
+      "type": "dieu_kien_ngoai_le_filter",
+      "question": "In the appendix hyperparameter notes, how does PIER-QA vary DBSCAN min_samples according to PDF page length?",
+      "expected_answer": "min_samples = 2 for 6 pages or fewer, 3 for 7 to 8 pages, and 4 for more than 8 pages.",
+      "gold_source_id": "2506.18027",
+      "gold_page": 12,
+      "evidence_quote": "–For documents with 6 pages or fewer:min_samples= 2 –For documents with 7 to 8 pages:min_samples= 3 –For documents with more than 8 pages:min_samples= 4",
+      "required_evidence_clauses": [
+        "6 pages or fewer:min_samples= 2",
+        "7 to 8 pages:min_samples= 3",
+        "more than 8 pages:min_samples= 4"
+      ],
+      "filter": {
+        "section_type": "appendix"
+      }
+    },
+    {
+      "id": "q15",
+      "split": "dev",
+      "type": "truc_tiep_filter",
+      "question": "In the 2026 appendix configuration table for Marker, which default OCR engine runs on GPU versus CPU, and is OCR_ALL_PAGES enabled by default?",
+      "expected_answer": "OCR_ENGINE defaults to \"surya\" on GPU and \"ocrmypdf\" on CPU; OCR_ALL_PAGES defaults to FALSE.",
+      "gold_source_id": "2506.18027",
+      "gold_page": 13,
+      "evidence_quote": "OCR_ENGINE \"surya\" OCR engine to use, defaults to \"surya\" on GPUand \"ocrmypdf\" on CPU. OCR_ALL_PAGES FALSE Whether to run OCR on every page even if textcan be extracted.",
+      "required_evidence_clauses": [
+        "OCR_ENGINE",
+        "\"surya\" on GPU",
+        "\"ocrmypdf\" on CPU",
+        "OCR_ALL_PAGES FALSE"
+      ],
+      "filter": {
+        "year": 2026,
+        "section_type": "appendix"
+      }
+    },
+    {
+      "id": "q16",
+      "split": "test",
+      "type": "truc_tiep",
+      "question": "What four robustness capabilities does the Retrieval-Augmented Generation Benchmark (RGB) test?",
+      "expected_answer": "Noise robustness, information integration, negative rejection, and counterfactual robustness.",
+      "gold_source_id": "2603.05698",
+      "gold_page": 1,
+      "evidence_quote": "In this work, we use the RGB corpus to evaluate LLMs in four scenarios: (1) noise robustness; (2) information integration; (3) negative rejection; and (4) counterfactual robustness.",
+      "required_evidence_clauses": [
+        "noise robustness",
+        "information integration",
+        "negative rejection",
+        "counterfactual robustness"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q17",
+      "split": "test",
+      "type": "dien_dat_lai_filter",
+      "question": "In the 2026 study evaluating GraphRAG robustness, what entity confidence cutoff, Leiden resolution value, and retrieved document count were fixed across experiments?",
+      "expected_answer": "Entity confidence threshold 0.7, Leiden resolution parameter 1.0, and 5 retrieved documents.",
+      "gold_source_id": "2603.05698",
+      "gold_page": 4,
+      "evidence_quote": "For the knowledge graph construction, a confidence score of 0.7 for entities was adopted which refers to the minimum threshold required for an entity to be included in the knowledge graph. The Leiden algorithm for community detection was used with a resolution parameter of 1.0. We kept the number of retrieved documents fixed to 5 for all experiments.",
+      "required_evidence_clauses": [
+        "confidence score of 0.7",
+        "resolution parameter of 1.0",
+        "retrieved documents fixed to 5"
+      ],
+      "filter": {
+        "year": 2026
+      }
+    },
+    {
+      "id": "q18",
+      "split": "test",
+      "type": "dieu_kien_ngoai_le",
+      "question": "In the noise robustness experiments with GPT-4o-mini, under which noise condition did GraphRAG outperform the RGB baseline?",
+      "expected_answer": "Only at the lowest noise ratio of 0.2.",
+      "gold_source_id": "2603.05698",
+      "gold_page": 4,
+      "evidence_quote": "For the GPT-4o-mini, GraphRAG achieved better results only for the lowest noise ratio of 0.2.",
+      "required_evidence_clauses": [
+        "GPT-4o-mini",
+        "only for the lowest noise ratio of 0.2"
+      ],
+      "filter": null
+    },
+    {
+      "id": "q19",
+      "split": "test",
+      "type": "dieu_kien_ngoai_le_filter",
+      "question": "In the 2026 evaluation results for counterfactual robustness, how did GRcomb compare against the RGB baseline on GPT-4o-mini accuracy with counterfactual documents (ACC_doc) versus error detection (ED)?",
+      "expected_answer": "GRcomb reduced GPT-4o-mini ACC_doc to 35.35% versus 71% for RGB, but raised error detection (ED) to 100% versus 77% for RGB.",
+      "gold_source_id": "2603.05698",
+      "gold_page": 5,
+      "evidence_quote": "For the GPT-4o-mini, the same configuration had a negative impact on the results compared to the accuracy achieved with the RGB baseline, 71 %, although it outperformed all other GraphRAG configuration, achieving 35.35 %. On the other hand, in terms of error detection (ED), the combination of the LLM encoded knowledge and external knowledge, GRcomb, led to the best results, achieving 94.94 % and 100 %, respectively, for GPT-3.5 and GPT-4o-mini, while the RGB benchmark achieved 7 % and 77 %.",
+      "required_evidence_clauses": [
+        "RGB baseline, 71 %",
+        "35.35 %",
+        "100 %",
+        "7 % and 77 %"
+      ],
+      "filter": {
+        "year": 2026,
+        "section_type": "evaluation"
+      }
+    },
+    {
+      "id": "q20",
+      "split": "test",
+      "type": "dien_dat_lai",
+      "question": "In the negative rejection experiments, why did GRdef obtain the lowest rejection rate for GPT-4o-mini (12.66%), and what overall limitation remained across all tested configurations?",
+      "expected_answer": "GRdef reveals the model's propensity to be overconfident in its encoded knowledge; overall, every configuration had rejection rates below 50%, showing RAG systems still struggle to reject unanswerable queries.",
+      "gold_source_id": "2603.05698",
+      "gold_page": 6,
+      "evidence_quote": "This is most evident for the configuration based on the GraphRAG default prompt, i.e., GRdef , which has the lowest rejection rate for GPT-4o-mini, 12.66%, which demonstrates the model’s propensity to be overconfident. Despite some variation across configurations, rejection rates are quite low (all below 50%), indicating the overall challenge faced by current RAG systems in effectively rejecting unanswerable questions.",
+      "required_evidence_clauses": [
+        "12.66%",
+        "overconfident",
+        "all below 50%"
+      ],
+      "filter": null
+    }
+  ]
+}

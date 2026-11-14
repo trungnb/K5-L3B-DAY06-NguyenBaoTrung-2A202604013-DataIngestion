@@ -1,0 +1,375 @@
+{
+  "corpus_name": "arxiv-rag-ccby4-mini",
+  "domain": "Retrieval-Augmented Generation (RAG) architectures, PDF ingestion, attribution, and robustness",
+  "counting_rule": "Count physical PDF pages containing substantive body, tables, algorithms, or appendices. Exclude references-only pages (2404.04302 p16-17, 2506.16988 p5, 2506.18027 p9-10) and references-dominant transition page (2506.18027 p11).",
+  "year_rule": "Latest arXiv version year stamped on page 1 of each PDF (2404.04302v1=2024, 2506.16988v2=2025, 2506.18027v3=2026, 2603.05698v2=2026).",
+  "total_documents": 4,
+  "total_physical_pages": 42,
+  "total_content_pages": 36,
+  "total_normalized_chars": 117393,
+  "documents": [
+    {
+      "source_id": "2404.04302",
+      "title": "CBR-RAG: Case-Based Reasoning for Retrieval Augmented Generation in LLMs for Legal Question Answering",
+      "version": "v1",
+      "year": 2024,
+      "topic": "legal_qa",
+      "source_url": "https://arxiv.org/abs/2404.04302",
+      "pdf_url": "https://arxiv.org/pdf/2404.04302.pdf",
+      "local_path": "starter/data/2404.04302.pdf",
+      "license_or_permission": "CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "accessed_at": "2026-11-14T09:57:00+07:00",
+      "content_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "excluded_pages": [
+        {
+          "page": 16,
+          "reason": "references_only"
+        },
+        {
+          "page": 17,
+          "reason": "references_only"
+        }
+      ],
+      "sha256": "670359a32baae7bef2e7d6ccdd4816a63a077d71268db0816698e283d03e52b0",
+      "physical_pages": 17,
+      "content_page_count": 15,
+      "total_normalized_chars": 35672,
+      "pages": [
+        {
+          "page": 1,
+          "page_id": "2404.04302:p01",
+          "section_type": "intro_related",
+          "normalized_chars": 2186
+        },
+        {
+          "page": 2,
+          "page_id": "2404.04302:p02",
+          "section_type": "intro_related",
+          "normalized_chars": 2886
+        },
+        {
+          "page": 3,
+          "page_id": "2404.04302:p03",
+          "section_type": "intro_related",
+          "normalized_chars": 3268
+        },
+        {
+          "page": 4,
+          "page_id": "2404.04302:p04",
+          "section_type": "methodology",
+          "normalized_chars": 1557
+        },
+        {
+          "page": 5,
+          "page_id": "2404.04302:p05",
+          "section_type": "methodology",
+          "normalized_chars": 1933
+        },
+        {
+          "page": 6,
+          "page_id": "2404.04302:p06",
+          "section_type": "methodology",
+          "normalized_chars": 2769
+        },
+        {
+          "page": 7,
+          "page_id": "2404.04302:p07",
+          "section_type": "methodology",
+          "normalized_chars": 2232
+        },
+        {
+          "page": 8,
+          "page_id": "2404.04302:p08",
+          "section_type": "methodology",
+          "normalized_chars": 1685
+        },
+        {
+          "page": 9,
+          "page_id": "2404.04302:p09",
+          "section_type": "methodology",
+          "normalized_chars": 2966
+        },
+        {
+          "page": 10,
+          "page_id": "2404.04302:p10",
+          "section_type": "methodology",
+          "normalized_chars": 2240
+        },
+        {
+          "page": 11,
+          "page_id": "2404.04302:p11",
+          "section_type": "evaluation",
+          "normalized_chars": 2238
+        },
+        {
+          "page": 12,
+          "page_id": "2404.04302:p12",
+          "section_type": "evaluation",
+          "normalized_chars": 2660
+        },
+        {
+          "page": 13,
+          "page_id": "2404.04302:p13",
+          "section_type": "evaluation",
+          "normalized_chars": 1541
+        },
+        {
+          "page": 14,
+          "page_id": "2404.04302:p14",
+          "section_type": "evaluation",
+          "normalized_chars": 2497
+        },
+        {
+          "page": 15,
+          "page_id": "2404.04302:p15",
+          "section_type": "evaluation",
+          "normalized_chars": 3014
+        }
+      ]
+    },
+    {
+      "source_id": "2506.16988",
+      "title": "RAGentA: Multi-Agent Retrieval-Augmented Generation for Attributed Question Answering",
+      "version": "v2",
+      "year": 2025,
+      "topic": "attributed_qa",
+      "source_url": "https://arxiv.org/abs/2506.16988",
+      "pdf_url": "https://arxiv.org/pdf/2506.16988.pdf",
+      "local_path": "starter/data/2506.16988.pdf",
+      "license_or_permission": "CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "accessed_at": "2026-11-14T09:57:00+07:00",
+      "content_pages": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "excluded_pages": [
+        {
+          "page": 5,
+          "reason": "references_only"
+        }
+      ],
+      "sha256": "37e24befa3a1b68ab255569b9735e9459790c07818e6e7d5caa3965b5fd29b8d",
+      "physical_pages": 5,
+      "content_page_count": 4,
+      "total_normalized_chars": 21863,
+      "pages": [
+        {
+          "page": 1,
+          "page_id": "2506.16988:p01",
+          "section_type": "intro_related",
+          "normalized_chars": 4896
+        },
+        {
+          "page": 2,
+          "page_id": "2506.16988:p02",
+          "section_type": "intro_related",
+          "normalized_chars": 6299
+        },
+        {
+          "page": 3,
+          "page_id": "2506.16988:p03",
+          "section_type": "methodology",
+          "normalized_chars": 4959
+        },
+        {
+          "page": 4,
+          "page_id": "2506.16988:p04",
+          "section_type": "evaluation",
+          "normalized_chars": 5709
+        }
+      ]
+    },
+    {
+      "source_id": "2506.18027",
+      "title": "PDF Retrieval Augmented Question Answering",
+      "version": "v3",
+      "year": 2026,
+      "topic": "pdf_qa",
+      "source_url": "https://arxiv.org/abs/2506.18027",
+      "pdf_url": "https://arxiv.org/pdf/2506.18027.pdf",
+      "local_path": "starter/data/2506.18027.pdf",
+      "license_or_permission": "CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "accessed_at": "2026-11-14T09:57:00+07:00",
+      "content_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        12,
+        13,
+        14
+      ],
+      "excluded_pages": [
+        {
+          "page": 9,
+          "reason": "references_only"
+        },
+        {
+          "page": 10,
+          "reason": "references_only"
+        },
+        {
+          "page": 11,
+          "reason": "references_dominant_with_appendix_start"
+        }
+      ],
+      "sha256": "2cf4d90f9981be405154096dd600baf9ff8a65b1ee2272a57ef1eb5e101c7b21",
+      "physical_pages": 14,
+      "content_page_count": 11,
+      "total_normalized_chars": 29635,
+      "pages": [
+        {
+          "page": 1,
+          "page_id": "2506.18027:p01",
+          "section_type": "intro_related",
+          "normalized_chars": 3594
+        },
+        {
+          "page": 2,
+          "page_id": "2506.18027:p02",
+          "section_type": "intro_related",
+          "normalized_chars": 3614
+        },
+        {
+          "page": 3,
+          "page_id": "2506.18027:p03",
+          "section_type": "methodology",
+          "normalized_chars": 1639
+        },
+        {
+          "page": 4,
+          "page_id": "2506.18027:p04",
+          "section_type": "methodology",
+          "normalized_chars": 2132
+        },
+        {
+          "page": 5,
+          "page_id": "2506.18027:p05",
+          "section_type": "methodology",
+          "normalized_chars": 2673
+        },
+        {
+          "page": 6,
+          "page_id": "2506.18027:p06",
+          "section_type": "methodology",
+          "normalized_chars": 3292
+        },
+        {
+          "page": 7,
+          "page_id": "2506.18027:p07",
+          "section_type": "evaluation",
+          "normalized_chars": 3092
+        },
+        {
+          "page": 8,
+          "page_id": "2506.18027:p08",
+          "section_type": "evaluation",
+          "normalized_chars": 3364
+        },
+        {
+          "page": 12,
+          "page_id": "2506.18027:p12",
+          "section_type": "appendix",
+          "normalized_chars": 2186
+        },
+        {
+          "page": 13,
+          "page_id": "2506.18027:p13",
+          "section_type": "appendix",
+          "normalized_chars": 2209
+        },
+        {
+          "page": 14,
+          "page_id": "2506.18027:p14",
+          "section_type": "appendix",
+          "normalized_chars": 1840
+        }
+      ]
+    },
+    {
+      "source_id": "2603.05698",
+      "title": "Towards Robust Retrieval-Augmented Generation Based on Knowledge Graph: A Comparative Analysis",
+      "version": "v2",
+      "year": 2026,
+      "topic": "kg_robustness",
+      "source_url": "https://arxiv.org/abs/2603.05698",
+      "pdf_url": "https://arxiv.org/pdf/2603.05698.pdf",
+      "local_path": "starter/data/2603.05698.pdf",
+      "license_or_permission": "CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "accessed_at": "2026-11-14T09:57:00+07:00",
+      "content_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "excluded_pages": [],
+      "sha256": "c6cd90994bf704110c5ccc5c79b7dbc5b40ca64b95e6f0708bbf88f617d1ce2f",
+      "physical_pages": 6,
+      "content_page_count": 6,
+      "total_normalized_chars": 30223,
+      "pages": [
+        {
+          "page": 1,
+          "page_id": "2603.05698:p01",
+          "section_type": "intro_related",
+          "normalized_chars": 5586
+        },
+        {
+          "page": 2,
+          "page_id": "2603.05698:p02",
+          "section_type": "methodology",
+          "normalized_chars": 3876
+        },
+        {
+          "page": 3,
+          "page_id": "2603.05698:p03",
+          "section_type": "methodology",
+          "normalized_chars": 4804
+        },
+        {
+          "page": 4,
+          "page_id": "2603.05698:p04",
+          "section_type": "evaluation",
+          "normalized_chars": 4295
+        },
+        {
+          "page": 5,
+          "page_id": "2603.05698:p05",
+          "section_type": "evaluation",
+          "normalized_chars": 5471
+        },
+        {
+          "page": 6,
+          "page_id": "2603.05698:p06",
+          "section_type": "evaluation",
+          "normalized_chars": 6191
+        }
+      ]
+    }
+  ]
+}

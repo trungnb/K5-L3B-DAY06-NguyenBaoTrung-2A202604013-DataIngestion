@@ -1,0 +1,365 @@
+{
+  "corpus_name": "arxiv-rag-ccby4-mini",
+  "loaded_content_pages": 36,
+  "parse_seconds": 0.666,
+  "page_logs": [
+    {
+      "document_id": "2404.04302",
+      "page": 1,
+      "status": "included",
+      "section_type": "intro_related",
+      "chars": 2186
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 2,
+      "status": "included",
+      "section_type": "intro_related",
+      "chars": 2886
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 3,
+      "status": "included",
+      "section_type": "intro_related",
+      "chars": 3268
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 4,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 1557
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 5,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 1933
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 6,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 2769
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 7,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 2232
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 8,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 1685
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 9,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 2966
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 10,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 2240
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 11,
+      "status": "included",
+      "section_type": "evaluation",
+      "chars": 2238
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 12,
+      "status": "included",
+      "section_type": "evaluation",
+      "chars": 2660
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 13,
+      "status": "included",
+      "section_type": "evaluation",
+      "chars": 1541
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 14,
+      "status": "included",
+      "section_type": "evaluation",
+      "chars": 2497
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 15,
+      "status": "included",
+      "section_type": "evaluation",
+      "chars": 3014
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 16,
+      "status": "excluded_by_manifest",
+      "chars": 3570
+    },
+    {
+      "document_id": "2404.04302",
+      "page": 17,
+      "status": "excluded_by_manifest",
+      "chars": 226
+    },
+    {
+      "document_id": "2506.16988",
+      "page": 1,
+      "status": "included",
+      "section_type": "intro_related",
+      "chars": 4896
+    },
+    {
+      "document_id": "2506.16988",
+      "page": 2,
+      "status": "included",
+      "section_type": "intro_related",
+      "chars": 6299
+    },
+    {
+      "document_id": "2506.16988",
+      "page": 3,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 4959
+    },
+    {
+      "document_id": "2506.16988",
+      "page": 4,
+      "status": "included",
+      "section_type": "evaluation",
+      "chars": 5709
+    },
+    {
+      "document_id": "2506.16988",
+      "page": 5,
+      "status": "excluded_by_manifest",
+      "chars": 9679
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 1,
+      "status": "included",
+      "section_type": "intro_related",
+      "chars": 3594
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 2,
+      "status": "included",
+      "section_type": "intro_related",
+      "chars": 3614
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 3,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 1639
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 4,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 2132
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 5,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 2673
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 6,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 3292
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 7,
+      "status": "included",
+      "section_type": "evaluation",
+      "chars": 3092
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 8,
+      "status": "included",
+      "section_type": "evaluation",
+      "chars": 3364
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 9,
+      "status": "excluded_by_manifest",
+      "chars": 5408
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 10,
+      "status": "excluded_by_manifest",
+      "chars": 4250
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 11,
+      "status": "excluded_by_manifest",
+      "chars": 2931
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 12,
+      "status": "included",
+      "section_type": "appendix",
+      "chars": 2186
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 13,
+      "status": "included",
+      "section_type": "appendix",
+      "chars": 2209
+    },
+    {
+      "document_id": "2506.18027",
+      "page": 14,
+      "status": "included",
+      "section_type": "appendix",
+      "chars": 1840
+    },
+    {
+      "document_id": "2603.05698",
+      "page": 1,
+      "status": "included",
+      "section_type": "intro_related",
+      "chars": 5586
+    },
+    {
+      "document_id": "2603.05698",
+      "page": 2,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 3876
+    },
+    {
+      "document_id": "2603.05698",
+      "page": 3,
+      "status": "included",
+      "section_type": "methodology",
+      "chars": 4804
+    },
+    {
+      "document_id": "2603.05698",
+      "page": 4,
+      "status": "included",
+      "section_type": "evaluation",
+      "chars": 4295
+    },
+    {
+      "document_id": "2603.05698",
+      "page": 5,
+      "status": "included",
+      "section_type": "evaluation",
+      "chars": 5471
+    },
+    {
+      "document_id": "2603.05698",
+      "page": 6,
+      "status": "included",
+      "section_type": "evaluation",
+      "chars": 6191
+    }
+  ],
+  "reload_idempotency_check": {
+    "before_reload_counts": {
+      "A": 272,
+      "B": 245,
+      "C": 245
+    },
+    "reloaded_document_id": "2404.04302",
+    "after_reload_count_A": 272,
+    "no_duplicates": true
+  },
+  "chunk_stats": {
+    "A": {
+      "count": 272,
+      "total_chars": 129099,
+      "min_chars": 68,
+      "median_chars": 500,
+      "mean_chars": 474.6,
+      "p95_chars": 500,
+      "max_chars": 500
+    },
+    "B": {
+      "count": 245,
+      "total_chars": 117065,
+      "min_chars": 68,
+      "median_chars": 518,
+      "mean_chars": 477.8,
+      "p95_chars": 638,
+      "max_chars": 648
+    },
+    "C": {
+      "count": 245,
+      "total_chars": 117065,
+      "min_chars": 68,
+      "median_chars": 518,
+      "mean_chars": 477.8,
+      "p95_chars": 638,
+      "max_chars": 648
+    }
+  },
+  "embedding": {
+    "provider": "google-genai",
+    "model_name": "gemini-embedding-001",
+    "dimensions": 3072,
+    "document_task_type": "RETRIEVAL_DOCUMENT",
+    "query_task_type": "RETRIEVAL_QUERY",
+    "api_calls_total": 37,
+    "embedded_chars_total": 248637,
+    "embed_seconds_A": 10.977,
+    "embed_seconds_B_shared_with_C": 9.261,
+    "query_embed_seconds": 8.011,
+    "api_calls_A": 9,
+    "api_calls_B_shared_with_C": 8,
+    "cost_usd_note": "Gemini API free tier / studio key; exact monetary cost depends on billing tier (0 USD if within free tier quota)."
+  },
+  "vector_store": {
+    "engine": "qdrant-client (local persistent disk storage)",
+    "storage_path": "starter/results/qdrant_db",
+    "metric": "COSINE",
+    "search_mode": "exact brute-force scan in Qdrant local Python mode",
+    "upsert_seconds": {
+      "A": 0.242,
+      "B": 0.189,
+      "C": 0.201
+    },
+    "query_seconds": {
+      "A": 0.054,
+      "B": 0.037,
+      "C": 0.042
+    }
+  }
+}

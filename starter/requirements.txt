@@ -1,4 +1,6 @@
-# Core setup and PDF parsing. Choose and install an embedding SDK separately.
-psycopg[binary]==3.3.8
+# Runtime dependencies for local Qdrant vector store + Gemini embeddings pipeline.
 pypdf>=5,<7
 python-dotenv>=1,<2
+google-genai>=3,<4
+qdrant-client>=1.16,<2
+pytest>=8,<10
