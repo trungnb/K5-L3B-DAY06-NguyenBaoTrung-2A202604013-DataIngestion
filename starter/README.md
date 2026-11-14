@@ -1,65 +1,58 @@
-# Starter · PostgreSQL + pgvector
+# Pipeline · Local Qdrant + Gemini Embeddings
 
-Bộ khởi động **tùy chọn** cho lab cá nhân. Docker Compose tạo PostgreSQL + pgvector local; các file trong `src/` là **khung pseudocode có TODO**, chưa đọc tài liệu, tạo embedding, lưu vector hay chạy benchmark. Bạn cần tự hiện thực. Vẫn có thể chọn Qdrant, Chroma hoặc vector store tương đương theo [GUIDE.md](../GUIDE.md).
+Thư mục thực thi cho bài làm Day 06 (`2A202604013` — Nguyễn Bảo Trung). Pipeline đọc PDF từ `starter/data/`, chuẩn hóa Unicode và ranh giới đoạn, chạy 3 chiến lược (`A` fixed-size `500/50`, `B` paragraph-aware `650`, `C` như `B` + metadata pre-filter), tạo vector bằng Google Gemini API (`gemini-embedding-001`, `3072` chiều, `RETRIEVAL_DOCUMENT`/`RETRIEVAL_QUERY`), lưu bền vững bằng `qdrant-client` trên đĩa và xuất toàn bộ trace/log ra `../results/`.
+
+*(Các file `docker-compose.yml`, `init.sql` và `scripts/check_setup.py` là khung PostgreSQL + pgvector ban đầu của đề, không dùng trong pipeline Qdrant đã chọn.)*
 
 ## Cấu trúc
 
 ```text
 starter/
-├── docker-compose.yml     # PostgreSQL 16 + pgvector, chỉ mở cổng local
-├── init.sql               # bật extension khi tạo database mới
-├── requirements.txt       # psycopg, pypdf và python-dotenv
-├── .env.example           # cấu hình mẫu; copy thành .env
-├── scripts/check_setup.py # kiểm tra kết nối và extension (đã chạy được)
+├── requirements.txt       # pypdf, python-dotenv, google-genai, qdrant-client, pytest
+├── .env.example           # mẫu biến môi trường; copy thành .env (không commit .env)
+├── data/                  # 4 bài báo arXiv CC BY 4.0 (2404.04302, 2506.16988, 2506.18027, 2603.05698)
 ├── src/
-│   ├── models.py          # cấu trúc dữ liệu mẫu
-│   ├── ingestion.py       # TODO: đọc / chuẩn hóa tài liệu
-│   ├── chunking.py        # TODO: chia chunk
-│   ├── embeddings.py      # TODO: chọn model API hoặc local
-│   ├── store.py           # TODO: lưu vector, metadata và filter
-│   ├── evaluation.py      # TODO: chấm truy xuất, lưu trace
-│   └── run.py             # TODO: kết nối các bước thành pipeline
-├── data/                  # bạn tự chuẩn bị corpus được phép sử dụng
-└── results/               # lưu kết quả của bạn
+│   ├── models.py          # dataclass DocumentPage, Chunk
+│   ├── ingestion.py       # đọc PDF, normalize_text, gán section_type cấp trang, page_logs
+│   ├── chunking.py        # fixed_size và by_paragraph
+│   ├── embeddings.py      # MyEmbedder gọi Gemini API (không fallback mock)
+│   ├── store.py           # QdrantVectorStore local disk, cosine, filter whitelist, xóa chunk cũ
+│   ├── evaluation.py      # evaluate_query (Hit@1, Hit@3, split_across_chunks) và summarize
+│   └── run.py             # chạy A/B/C, kiểm tra reload idempotency, xuất ../results/*.json
+├── tests/
+│   └── test_pipeline.py   # 5 unit test offline
+└── results/
+    └── qdrant_db/         # Qdrant local storage (gitignored, tự tạo lại khi chạy src.run)
 ```
 
-## 1. Cài và kiểm tra database
+## 1. Cài đặt môi trường
 
-Cần Docker Desktop hoặc Docker Engine + Compose, Python **3.11–3.14**, và mạng để tải image/dependencies lần đầu. Các lệnh sau chạy từ thư mục `starter/`:
+Cần Python **3.11–3.14** và khóa `GEMINI_API_KEY`. Từ thư mục `starter/`:
 
 ```bash
 cd starter
 python3 -m venv .venv
-```
-
-Kích hoạt `.venv`: macOS/Linux dùng `source .venv/bin/activate`; Windows PowerShell dùng `.venv\Scripts\Activate.ps1`. Sau đó:
-
-```bash
+source .venv/bin/activate          # Windows PowerShell: .venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-# macOS/Linux: cp .env.example .env
-# Windows PowerShell: Copy-Item .env.example .env
-docker compose -p day6_student_starter up -d --wait
-python scripts/check_setup.py
+cp .env.example .env               # điền GEMINI_API_KEY
 ```
 
-Kỳ vọng: hiện tên database, phiên bản PostgreSQL và pgvector, sau đó `Setup OK`. Đây **chỉ là kiểm tra hạ tầng**, không phải kết quả benchmark. Docker dùng cổng `127.0.0.1:55433` và mật khẩu cố định **chỉ dùng local cho lab**; nếu cổng bận, sửa đồng thời port trong `docker-compose.yml` và `DATABASE_URL` trong `.env`. `init.sql` chỉ chạy khi volume mới được tạo; nếu database sẵn có chưa bật extension, xem log Docker và kiểm tra cấu hình thay vì xóa volume chứa dữ liệu.
+Biến môi trường sử dụng trong `starter/.env`:
+- `GEMINI_API_KEY`: bắt buộc cho `python -m src.run` (không dùng cho `pytest`).
+- `EMBEDDING_MODEL`: tùy chọn, mặc định `gemini-embedding-001`.
 
-Dừng container nhưng giữ dữ liệu:
+## 2. Chạy test và pipeline
+
+Kiểm thử đơn vị offline (không cần `GEMINI_API_KEY`, không gọi mạng):
 
 ```bash
-docker compose -p day6_student_starter stop
+python -m pytest -q
 ```
 
-## 2. Chọn embedding model
+Chạy toàn bộ pipeline (tái tạo `starter/results/qdrant_db/` và ghi `../results/ingestion_log.json`, `../results/traces_all.json`, `../results/coherence_samples.json`, `../results/test_audit_samples.json`; không ghi đè `../results/manual_audit.json`):
 
-Điền key tương ứng trong `.env` nếu dùng OpenRouter, OpenAI hoặc Gemini; **không commit `.env`**. Model local không cần API key. `requirements.txt` chỉ có dependencies cơ bản: tự cài SDK hoặc thư viện local phù hợp với model bạn chọn và ghi lại version/lệnh cài trong báo cáo. Ghi tên model và số chiều; dùng cùng model cho toàn bộ chiến lược và vector query tương thích vector document.
+```bash
+python -m src.run
+```
 
-## 3. Hoàn thiện pipeline
-
-1. Đặt corpus vào `data/` hoặc cung cấp manifest/hướng dẫn truy cập. Đọc [GUIDE.md](../GUIDE.md) về **30 trang nội dung**, quyền dữ liệu và metadata.
-2. Hoàn thiện từng hàm TODO trong `src/`. Lưu ID tài liệu, nguồn, trang/vị trí và ít nhất một trường filter có ích.
-3. Xây ít nhất ba cấu hình; ví dụ A fixed-size, B theo đoạn, C như B nhưng có filter. Cần cùng corpus, model và benchmark; nạp lại không nhân đôi và xử lý chunk cũ khi dữ liệu đổi.
-4. Tự viết ít nhất 20 câu hỏi kèm evidence, tách dev/test trước khi thử theo [BENCHMARK.md](../BENCHMARK.md). Lưu trace top-3 và báo cáo đủ năm tiêu chí.
-5. Sau khi hoàn thiện, chạy `python -m src.run` từ thư mục `starter/`. Trước khi làm TODO, lệnh này **chủ động báo `NotImplementedError`**.
-
-Lưu code, cấu hình, kết quả và lệnh chạy để người chấm tái lập; không commit key, dữ liệu mật hoặc dữ liệu không có quyền chia sẻ.
+Chi tiết tham số, số liệu dev/test và đánh giá thủ công xem [../report/individual/2A202604013_NguyenBaoTrung.md](../report/individual/2A202604013_NguyenBaoTrung.md).

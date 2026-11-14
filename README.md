@@ -1,36 +1,47 @@
 # Day 06 · Data Ingestion Engineering
 
-**Lab cá nhân** · **4 giờ** · **Dữ liệu tự chọn**
+**Bài nộp cá nhân** · **Nguyễn Bảo Trung (`2A202604013` · Lớp `L3B`)**
 
-Biến tài liệu thành kho tri thức có thể truy xuất cho AI agent, rồi đo xem cách chuẩn bị dữ liệu nào hiệu quả nhất.
+Pipeline Data Ingestion bằng Python cho 4 bài báo arXiv CC BY 4.0 (`36/42` trang nội dung hợp lệ), so sánh có kiểm soát 3 chiến lược (`A` fixed-size `500/50`, `B` paragraph-aware `650`, `C` như `B` + pre-retrieval metadata filter) với embedding thật `gemini-embedding-001` (`3072` chiều) và vector store `qdrant-client` lưu bền vững trên đĩa.
 
 | 📄 Dữ liệu | 🧩 Chiến lược | 🎯 Benchmark |
 |---|---|---|
-| Tối thiểu **30 trang nội dung** | Tối thiểu **3 cấu hình** | Tối thiểu **20 câu hỏi** |
+| **36/42 trang nội dung** (4 PDF arXiv CC BY 4.0) | **3 cấu hình** (`A` / `B` / `C`) | **20 câu hỏi** (`15 dev` / `5 test`, `6` câu filter) |
 
-## Bắt đầu nhanh
+## 1. Đường dẫn dữ liệu & cấu trúc bài nộp
 
-Dùng [starter PostgreSQL + pgvector](starter/README.md) để dựng database và hoàn thiện các hàm TODO, hoặc tự chọn vector store tương đương. Starter chỉ là khung: **bạn tự hiện thực pipeline và benchmark**.
+- Thông tin học viên: [STUDENT.md](STUDENT.md)
+- Dữ liệu PDF nguồn: [starter/data/](starter/data/) (`2404.04302.pdf`, `2506.16988.pdf`, `2506.18027.pdf`, `2603.05698.pdf`)
+- Manifest & quy tắc tính trang: [data/manifest.json](data/manifest.json)
+- Bộ câu hỏi benchmark & gold evidence: [benchmark/questions.json](benchmark/questions.json)
+- Mã nguồn & unit test: [starter/src/](starter/src/), [starter/tests/test_pipeline.py](starter/tests/test_pipeline.py)
+- Nhật ký cấu hình & chỉ số A/B/C: [artifacts/experiment_log.csv](artifacts/experiment_log.csv)
+- Kết quả chạy & audit thủ công: [results/ingestion_log.json](results/ingestion_log.json), [results/traces_all.json](results/traces_all.json), [results/coherence_samples.json](results/coherence_samples.json), [results/test_audit_samples.json](results/test_audit_samples.json), [results/manual_audit.json](results/manual_audit.json)
+- Báo cáo cá nhân: [report/individual/2A202604013_NguyenBaoTrung.md](report/individual/2A202604013_NguyenBaoTrung.md)
 
-## 1. Xây pipeline
+## 2. Cách setup & chạy tái lập
 
-![Đọc tài liệu, chuẩn hóa, chia chunk, tạo vector, lưu và kiểm tra](assets/ingestion-pipeline.svg)
+Yêu cầu Python `3.11–3.14` và `GEMINI_API_KEY` (không commit `.env`; chỉ số vector cục bộ `starter/results/qdrant_db/` được gitignore và tự động tạo lại khi chạy pipeline). Xem thêm [starter/README.md](starter/README.md).
 
-Chọn tài liệu được phép sử dụng; giữ **ID tài liệu, nguồn, trang/vị trí** và metadata phù hợp. Dùng embedding model thật qua API hoặc chạy local; lưu và truy xuất bằng pgvector, Qdrant, Chroma hoặc một store tương đương.
+```bash
+cd starter
+python3 -m venv .venv
+source .venv/bin/activate          # Windows PowerShell: .venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+cp .env.example .env               # điền GEMINI_API_KEY (tuỳ chọn EMBEDDING_MODEL=gemini-embedding-001)
+```
 
-## 2. So sánh và đánh giá
+Chạy kiểm thử đơn vị (offline, không gọi API):
 
-![Ba chiến lược được đánh giá trên cùng corpus và benchmark dev/test](assets/benchmark-workflow.svg)
+```bash
+(cd starter && .venv/bin/python -m pytest -q)
+```
 
-Dùng cùng dữ liệu, model và câu hỏi cho cả ba cấu hình. Tách **15 câu dev / 5 câu test** trước khi chạy; chọn cấu hình trên dev, rồi đánh giá test sau khi cố định. Mỗi câu hỏi cần có đoạn bằng chứng và trang nguồn; thiết kế bộ câu hỏi và đánh giá theo [BENCHMARK.md](BENCHMARK.md).
+Chạy toàn bộ pipeline (parse PDF, chunk A/B/C, embed qua Gemini API, lưu Qdrant local, kiểm tra nạp lại không trùng, đánh giá 20 câu và xuất `results/`):
 
-Đánh giá theo năm khía cạnh: **độ chính xác truy xuất**, **tính mạch lạc của chunk**, **tính hữu dụng của metadata**, **chất lượng grounding** và **tác động của chiến lược dữ liệu**. Giải thích lựa chọn bằng kết quả, ví dụ lỗi và các đánh đổi.
-
-## 3. Chuẩn bị bài nộp
-
-1. Chạy pipeline và lưu cấu hình, kết quả top-3, trace cùng nhãn đánh giá thủ công.
-2. Điền [thông tin học viên](STUDENT.md), [nhật ký thí nghiệm](artifacts/experiment_log.csv) và bản sao [mẫu báo cáo cá nhân](report/individual/MSSV_HoTen.md).
-3. Kiểm tra mã nguồn, cách chạy, manifest dữ liệu và checklist trong [SUBMISSION.md](SUBMISSION.md).
+```bash
+(cd starter && .venv/bin/python -m src.run)
+```
 
 ## Tài liệu hướng dẫn
 
